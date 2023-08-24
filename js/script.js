@@ -1,9 +1,14 @@
 import { Modal } from "./modal.js";
 import { AlertError } from "./alert-error.js";
+import { IMCCalculator, notANumber } from "./utils.js";
 
 const form = document.querySelector("form");
 const inputWeight = document.querySelector("#weight");
 const inputHeigth = document.querySelector("#heigth");
+
+// Evento input faz verificar se eu estou modificando algo no input
+inputWeight.oninput = () => AlertError.close();
+inputHeigth.oninput = () => AlertError.close();
 
 form.onsubmit = event => {
   /* Fazer com que o form deixe sua configuração padrão que é enviar o formulário com o prevent(Evitar)
@@ -13,9 +18,9 @@ form.onsubmit = event => {
   const weight = inputWeight.value;
   const height = inputHeigth.value;
 
-  const showAlertError = notANumber(weight) || notANumber(height);
+  const weightOrHeightIsNotNumber = notANumber(weight) || notANumber(height);
 
-  if(showAlertError) {
+  if( weightOrHeightIsNotNumber) {
     AlertError.open();
     return;
   }
@@ -23,16 +28,19 @@ form.onsubmit = event => {
   AlertError.close();
 
   const result = IMCCalculator(weight, height);
+  displayResultMessage(result);
+
+  inputWeight.focus();
+
+  inputWeight.value = "";
+  inputHeigth.value = "";
+}
+
+function displayResultMessage(result) {
   const message = `O seu IMC é de ${result}`;
   Modal.message.innerText = message;
   Modal.open();
 }
 
-function notANumber(value) {
-  return isNaN(value) || value === "";
-}
 
-function IMCCalculator(weight, height) {
-  return (weight / (height / 100) ** 2).toFixed(2);
-}
-
+// Depois de fechar o modal deixar o input de foco

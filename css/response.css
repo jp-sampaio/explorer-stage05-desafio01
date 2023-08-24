@@ -1,0 +1,13 @@
+@media (max-width: 500px) {
+  .card {
+    margin: 1rem;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  form .title {
+    text-align: center;
+  }
+}
