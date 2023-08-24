@@ -29,8 +29,8 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;;
-  background-color: #040924;;
+  font-family: 'Roboto', sans-serif;
+  background-color: #040924;
 }
 
 body, button, input {
@@ -41,7 +41,7 @@ body, button, input {
 .container {
   display: grid;
   place-content: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .card {
@@ -159,7 +159,7 @@ button:hover {
   position: relative;
 }
 
-.closed {
+.close {
   background: none;
   border: none;
   position: absolute;
@@ -169,6 +169,29 @@ button:hover {
   transition: transform .3s;
 }
 
-.closed:hover {
+.close:hover {
   transform: scale(1.1);
+}
+
+.alert-error.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.alert-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: var(--bg-error);
+  color: var(--cl-error);
+  padding: .8rem;
+  font-weight: 700;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-36px);
+  transition: transform .5s;
 }
